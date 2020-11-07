@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity2">
+
+    <TextView
+        android:id="@+id/user"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:text="账号:"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignBottom="@+id/user"
+        android:layout_marginBottom="-313dp"
+        android:hint="请输入账号"
+        app:layout_constraintLeft_toRightOf="@+id/user" />
+
+    <Button
+        android:id="@+id/btn1"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/user"
+        android:layout_marginTop="80dp"
+        android:text="登录"
+
+        android:textSize="22sp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="88dp"></Button>
+
+    <ProgressBar
+        android:id="@+id/pb1"
+        style="@android:style/Widget.Material.Light.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:max="200"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-16dp"
+        tools:layout_editor_absoluteY="219dp"></ProgressBar>
+
+</RelativeLayout>
+
+<!--    <TextView-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="账号"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textFontWeight="810"-->
+<!--        android:textSize="25sp"-->
+<!--        tools:layout_editor_absoluteX="31dp"-->
+<!--        tools:layout_editor_absoluteY="44dp"></TextView>-->
+
+
+
+
