@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".MainActivity2">
+    tools:context=".MainActivity5">
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="开始"
-        android:id="@+id/click"
+        android:text="拍照"
+        android:textSize="20sp"
+        android:id="@+id/btn"
         />
-    <TextView
-        android:layout_width="match_parent"
+
+    <ImageView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/text"
-        android:text="爹，你来了！"
-        android:textSize="28sp"
+        android:id="@+id/img"
+        android:layout_gravity="center_horizontal"
         />
+
 </LinearLayout>
