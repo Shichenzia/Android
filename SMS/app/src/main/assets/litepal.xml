@@ -1,10 +1,10 @@
 <?xml version ="1.0" encoding ="utf-8"?>
 <litepal>
-    <dbname value="cool_weather"></dbname>
+    <dbname value="SMS"></dbname>
     <version value="1"></version>
     <list>
-        <mapping class="com.example.util.Province"></mapping>
-        <mapping class="com.example.util.City"></mapping>
-        <mapping class="com.example.util.County"></mapping>
+        <mapping class="com.example.util.Student"></mapping>
+        <mapping class="com.example.util.Admin"></mapping>
+
     </list>
 </litepal>

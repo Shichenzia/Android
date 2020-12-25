@@ -50,5 +50,6 @@
         android:layout_weight="1"
         android:text="确认"
         android:textSize="28sp"
+        android:id="@+id/ok"
         />
 </LinearLayout>

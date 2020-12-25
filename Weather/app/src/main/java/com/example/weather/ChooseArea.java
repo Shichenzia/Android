@@ -2,14 +2,15 @@ package com.example.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.StrictMode;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -26,11 +27,9 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
 import okhttp3.Response;
 
-public class MainActivity extends AppCompatActivity {
+public class ChooseArea extends AppCompatActivity {
 
     private Spinner province;
     private Spinner city;
@@ -45,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private int provinceId = 0;
     private int cityId = 0;
     private String[] cityCodes = new String[]{"0"};
+    private Button ok;
+    private String weatherID;
 
 
 
@@ -62,10 +63,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.choose_area);
         province = findViewById(R.id.province);
         city = findViewById(R.id.city);
         county = findViewById(R.id.county);
+        ok= findViewById(R.id.ok);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(weatherID == null){
+                    Toast.makeText(getApplicationContext(), "请选择省市县地址！",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intent = new Intent(ChooseArea.this, WeatherActivity.class);
+                    Log.d("TAG", "onClick: "+weatherID);
+                    intent.putExtra("weather_id", weatherID);
+                    startActivity(intent);
+                }
+            }
+        });
+
+
 
         provinceData = new String[]{"请选择","北京","上海","天津","重庆","香港","澳门","台湾","黑龙江",
                 "吉林","辽宁","内蒙古","河北","河南","山西","山东","江苏","浙江","福建","江西","安徽","湖北","湖南","广东",
@@ -123,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                             if(result){
                                // Log.d("TAG", "请求后，继续查询数据库");
                                 cityList = DataSupport.where("provinceId=?",""+provinceId).find(City.class);
-                                cityData = new String[]{""};;
+                                cityData = new String[]{""};
                                 cityCodes = new String[]{""};
                                 for(City city : cityList){
                                     cityData = arrayUtil.push(cityData,city.getCityName());
@@ -134,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                                 message.what = 2;
                                 handler.sendMessage(message);
                             }else {
-                                Toast.makeText(MainActivity.this,"请求失败！",Toast.LENGTH_LONG).show();
+                                Toast.makeText(ChooseArea.this,"请求失败！",Toast.LENGTH_LONG).show();
                             }
                         }
                     });
@@ -176,7 +195,6 @@ public class MainActivity extends AppCompatActivity {
                     countyData = new String[]{""};
                     for(County county : countyList){
                         countyData = arrayUtil.push(countyData,county.getCountyName());
-
                     }
                     // arrayUtil.arrayPlay(cityData);
                     Message message = new Message();
@@ -217,14 +235,12 @@ public class MainActivity extends AppCompatActivity {
                                 message.what = 4;
                                 handler.sendMessage(message);
                             }else {
-                                //Toast.makeText(MainActivity.this,"请求失败！",Toast.LENGTH_LONG).show();
+                                //Toast.makeText(ChooseArea.this,"请求失败！",Toast.LENGTH_LONG).show();
                                 Log.d("TAG", "onResponse: ");
                             }
                         }
                     });
                 }
-                //设置spinner内的填充文字居中
-                //((TextView)view).setGravity(Gravity.CENTER);
             }
 
             @Override
@@ -233,9 +249,30 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /**************************************************** 监听区县的点击事件* **********************************************************/
+        county.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            //parent就是父控件spinner
+            //view就是spinner内填充的textview,id=@android:id/text1
+            //position是值所在数组的位置
+            //id是值所在行的位置，一般来说与positin一致
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                ArrayUtil arrayUtil = new ArrayUtil();
 
+                int idCode = (int) id;
+                Log.d("TAG", "idCode: "+idCode);
 
+                if(countyList.size()>0){
+                    weatherID = countyList.get(idCode).getWeatherId();
+                    Log.d("TAG", "onItemSelected: "+weatherID);
+                }
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // Another interface callback
+            }
+        });
     }
 
 
